@@ -1,0 +1,162 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Scythe Simulator Made by Blast", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+--[[
+Name = <string> - The name of the UI.
+HidePremium = <bool> - Whether or not the user details shows Premium status or not.
+SaveConfig = <bool> - Toggles the config saving in the UI.
+ConfigFolder = <string> - The name of the folder where the configs are saved.
+IntroEnabled = <bool> - Whether or not to show the intro animation.
+IntroText = <string> - Text to show in the intro animation.
+IntroIcon = <string> - URL to the image you want to use in the intro animation.
+Icon = <string> - URL to the image you want displayed on the window.
+CloseCallback = <function> - Function to execute when the window is closed.
+]]
+
+local Tab = Window:MakeTab({
+	Name = "Main",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+
+Tab:AddButton({
+	Name = "Equip Infinite Pet",
+	Callback = function()
+      		for i = 1, DupeAmount do
+      game:GetService("ReplicatedStorage"):WaitForChild("PetEquip"):FireServer("KrakenPet")
+      end
+   	end    
+})
+
+Tab:AddDropdown({
+	Name = "How much Pet you wanna equip",
+	Default = "1",
+	Options = {"1", "10", "20", "30", "40", "50", "100", "200", "300", "400", "500", "1000", "2000", "3000", "4000", "5000", "10000"},
+	Callback = function(Value)
+		   DupeAmount = Value
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Auto Rebirth",
+	Default = false,
+	Callback = function(Value)
+		  getgenv(). Rebirth = Value
+		
+		while getgenv(). Rebirth do
+		game:GetService("ReplicatedStorage"):WaitForChild("RebirthPlayer"):FireServer()
+		wait(0.2)
+			end
+	end    
+})
+
+
+Tab:AddToggle({
+	Name = "Spawn Gems (OP)",
+	Default = false,
+	Callback = function(Value)
+		getgenv(). gems = Value
+
+        while getgenv(). gems do
+            game:GetService("ReplicatedStorage"):WaitForChild("PlaytimeRewards"):FireServer(7)
+wait(0.001)
+end
+	end    
+})
+
+
+Tab:AddButton({
+	Name = "Equip any pet you want",
+	Callback = function()
+      		game:GetService("ReplicatedStorage"):WaitForChild("PetEquip"):FireServer(Pet)
+  	end    
+})
+
+
+Tab:AddDropdown({
+	Name = "Choose what pet",
+	Default = "KrakenPet",
+	Options = {"KrakenPet", "PegasusPet", "PhoenixPet", "HydraDominusAstra", "BlueDominusPet"},
+	Callback = function(Value)
+		Pet = Value
+	end    
+})
+
+
+Tab:AddButton({
+	Name = "Allows you to equip Inf pets",
+	Callback = function()
+      		-- skid if ur gay Assuming you have access to game and game.Players.LocalPlayer
+local player = game.Players.LocalPlayer
+
+-- Check if PlayerData exists
+if player.PlayerData then
+    -- Find InventoryInfo under PlayerData
+    local inventoryInfo = player.PlayerData:FindFirstChild("InventoryInfo")
+
+    -- Check if InventoryInfo exists and has PetLimit
+    if inventoryInfo and inventoryInfo:FindFirstChild("PetLimit") then
+        -- Set PetLimit to 1000000
+        inventoryInfo.PetLimit.Value = 1000000
+        print("Changed PetLimit to 1000000")
+    else
+        warn("InventoryInfo or PetLimit not found.")
+    end
+else
+    warn("PlayerData not found!")
+end
+
+  	end    
+})
+
+
+Tab:AddButton({
+	Name = "Claim Quest for without waiting",
+	Callback = function()
+      		local player = game.Players.LocalPlayer
+
+-- Check if PlayerData exists
+if player.PlayerData then
+    local questData = player.PlayerData:FindFirstChild("QuestData")
+
+    -- Check if QuestData exists and has CanClaim
+    if questData and questData:FindFirstChild("CanClaim") then
+        questData.CanClaim.Value = true
+        print("Changed CanClaim to true")
+    else
+        warn("QuestData or CanClaim not found.")
+    end
+else
+    warn("PlayerData not found!")
+end
+
+  	end    
+})
+
+
+Tab:AddButton({
+	Name = "Inf Storage Size",
+	Callback = function()
+      		-- Assuming you have access to game and game.Players.LocalPlayer
+local player = game.Players.LocalPlayer
+
+-- Check if PlayerData exists
+if player.PlayerData then
+    -- Find InventoryInfo under PlayerData
+    local inventoryInfo = player.PlayerData:FindFirstChild("InventoryInfo")
+
+    -- Check if InventoryInfo exists and has StorageSize
+    if inventoryInfo and inventoryInfo:FindFirstChild("StorageSize") then
+        -- Set StorageSize to 1000000
+        inventoryInfo.StorageSize.Value = 1000000
+        print("Changed StorageSize to 1000000")
+    else
+        warn("InventoryInfo or StorageSize not found.")
+    end
+else
+    warn("PlayerData not found!")
+end
+
+  	end    
+})
